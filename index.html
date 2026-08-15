@@ -257,8 +257,88 @@
   .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; }
   .footer-links a:hover { color: var(--forest); }
   .footer-tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--gold); font-size: 1.05rem; margin-top: 0.75rem; }
-  .footer-credit { font-size: 0.75rem; color: var(--muted); margin-top: 1.25rem; }
-  .footer-credit a { color: var(--gold); text-decoration: none; }
+  .footer-webara {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    margin-top: 1.25rem; font-size: 0.8rem; color: var(--muted);
+  }
+  .footer-webara .heart { color: #d16a6a; }
+  .footer-webara a {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    color: var(--gold); text-decoration: none; font-weight: 600;
+    transition: color 0.2s;
+  }
+  .footer-webara a:hover { color: var(--forest); }
+  .webara-logo { height: 18px; width: auto; }
+  .footer-credit { font-size: 0.72rem; color: var(--muted); margin-top: 0.75rem; opacity: 0.75; }
+
+  /* ── Comprehensive Mobile Responsive ── */
+  @media (max-width: 768px) {
+    .container { padding: 0 1.25rem; }
+
+    /* Hero */
+    .hero { min-height: 88vh; }
+    .hero-inner { padding: 6rem 1.25rem 5rem; }
+    .hero-seal { width: 76px; height: 76px; }
+    .hero h1 { font-size: clamp(2.1rem, 9vw, 3rem); }
+    .hero p.sub { font-size: 0.95rem; }
+    .hero-badge { font-size: 0.6rem; padding: 0.4rem 0.9rem; margin-top: 1.5rem; }
+
+    /* Sections */
+    section { padding: 3.5rem 0; }
+    .section-title { font-size: clamp(1.5rem, 6vw, 2rem); }
+    .section-tag { font-size: 0.65rem; }
+
+    /* Stats */
+    .stats { padding: 2.5rem 0; }
+    .stats-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .stat-number { font-size: 2.25rem; }
+    .stat-label { font-size: 0.8rem; }
+
+    /* Flow grid */
+    .flow-grid { grid-template-columns: 1fr; gap: 1rem; margin-top: 2rem; }
+    .flow-step { padding: 1.25rem; }
+    .flow-num { font-size: 1.75rem; }
+    .flow-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+
+    /* Comparison table — scrollable on mobile */
+    .compare-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -1.25rem; padding: 0 1.25rem; }
+    .compare-table { min-width: 540px; font-size: 0.8rem; }
+    .compare-table th, .compare-table td { padding: 0.75rem 0.85rem; font-size: 0.8rem; }
+
+    /* Pledge */
+    .pledge { padding: 3.5rem 0; }
+    .pledge h2 { font-size: clamp(1.5rem, 6vw, 2rem); }
+    .pledge p { font-size: 0.875rem; }
+    .seal-mini { width: 52px; height: 52px; }
+
+    /* Stakeholders */
+    .stakeholders-grid { grid-template-columns: 1fr; gap: 1rem; margin-top: 2rem; }
+    .stake-card { padding: 1.5rem; }
+    .stake-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+
+    /* Roadmap */
+    .roadmap-item { gap: 1rem; padding: 1.25rem 0; }
+    .roadmap-phase { font-size: 1.25rem; min-width: 48px; }
+    .roadmap-body h3 { font-size: 0.925rem; }
+    .roadmap-body p { font-size: 0.825rem; }
+
+    /* Contact */
+    .contact-options { flex-direction: column; align-items: stretch; max-width: 320px; margin: 0 auto; }
+    .contact-btn { justify-content: center; text-align: center; }
+    .contact p.lead { font-size: 0.9rem; }
+
+    /* Footer */
+    footer { padding: 2rem 0; }
+    .footer-links { flex-direction: column; gap: 0.6rem; }
+    .footer-tagline { font-size: 0.95rem; }
+  }
+
+  @media (max-width: 400px) {
+    .hero h1 { font-size: 1.9rem; }
+    .hero p.sub { font-size: 0.875rem; }
+    .nav-brand span { font-size: 0.9rem; }
+    .stat-number { font-size: 2rem; }
+  }
 </style>
 </head>
 <body>
@@ -357,7 +437,8 @@
       <div class="section-tag">Why now</div>
       <h2 class="section-title">The old registries broke trust. We're built on proof.</h2>
     </div>
-    <table class="compare-table reveal">
+    <div class="compare-scroll reveal">
+      <table class="compare-table">
       <thead>
         <tr>
           <th></th>
@@ -397,7 +478,8 @@
           <td class="cb-col">West African realities, Article 6 alignment</td>
         </tr>
       </tbody>
-    </table>
+      </table>
+    </div>
   </div>
 </section>
 
@@ -529,9 +611,14 @@
       <a href="mailto:admin@carbonbod.com">Contact</a>
     </div>
     <div class="footer-tagline">Every tonne, proven.</div>
-    <div class="footer-credit">
-      © 2026 CarbonBod · <a href="https://webarastudio.com" target="_blank" rel="noopener">Built by Webara Studio</a>
+    <div class="footer-webara">
+      Built with <span class="heart">&#10084;</span> by
+      <a href="https://webarastudio.com" target="_blank" rel="noopener">
+        <img src="/webara-logo.webp" alt="Webara Studio" class="webara-logo">
+        Webara
+      </a>
     </div>
+    <div class="footer-credit">© 2026 CarbonBod</div>
   </div>
 </footer>
 
