@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CarbonBod — Every tonne, proven.</title>
+<meta name="description" content="The West African carbon registry. Every credit backed by continuous sensor measurement, not paper estimates.">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1b3d2b;
+    --forest-deep: #122b1e;
+    --forest-mid: #2a5640;
+    --charcoal: #1c1c1a;
+    --gold: #b89a4a;
+    --gold-bright: #d4b96a;
+    --cream: #f7f4ec;
+    --cream-dark: #efe9db;
+    --ink: #23302a;
+    --muted: #5d6b62;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  .serif { font-family: 'Cormorant Garamond', serif; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+  /* ── Nav ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(247, 244, 236, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(27, 61, 43, 0.1);
+    animation: nav-in 0.6s ease-out;
+  }
+  @keyframes nav-in { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+  .nav-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+  .nav-brand img { width: 36px; height: 36px; }
+  .nav-brand span { font-weight: 600; color: var(--forest); font-size: 1.05rem; letter-spacing: 0.04em; }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 500;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--forest); }
+  .nav-cta {
+    padding: 0.55rem 1.4rem; background: var(--forest); color: var(--cream) !important;
+    border-radius: 100px; font-weight: 600;
+  }
+  .nav-cta:hover { background: var(--forest-mid); }
+  @media (max-width: 768px) { .nav-links { display: none; } }
+
+  /* ── Hero ── */
+  .hero { padding: 9rem 0 5rem; text-align: center; position: relative; overflow: hidden; }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(27, 61, 43, 0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-seal {
+    width: 110px; height: 110px; margin: 0 auto 2rem;
+    animation: seal-in 1s ease-out 0.2s both;
+  }
+  @keyframes seal-in { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 600; line-height: 1.08; color: var(--forest);
+    letter-spacing: -0.01em;
+    animation: fade-up 0.8s ease-out 0.4s both;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero p.sub {
+    font-size: clamp(1rem, 2vw, 1.25rem); color: var(--muted);
+    max-width: 620px; margin: 1.5rem auto 0; line-height: 1.6;
+    animation: fade-up 0.8s ease-out 0.6s both;
+  }
+  .hero-badge {
+    display: inline-block; margin-top: 2rem;
+    padding: 0.5rem 1.2rem; border: 1px solid rgba(27, 61, 43, 0.25);
+    border-radius: 100px; font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--forest);
+    animation: fade-up 0.8s ease-out 0.8s both;
+  }
+  @keyframes fade-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── Sections ── */
+  section { padding: 5rem 0; }
+  .section-tag {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.75rem); font-weight: 600;
+    color: var(--forest); line-height: 1.15; margin-bottom: 1rem;
+  }
+  .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── Stats ── */
+  .stats { background: var(--forest); color: var(--cream); padding: 3.5rem 0; }
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; text-align: center; }
+  .stat-number { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 600; color: var(--gold-bright); }
+  .stat-label { font-size: 0.85rem; opacity: 0.85; margin-top: 0.4rem; line-height: 1.5; }
+  @media (max-width: 768px) { .stats-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+  /* ── How it works ── */
+  .flow-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .flow-step {
+    background: white; border: 1px solid rgba(27, 61, 43, 0.1);
+    border-radius: 14px; padding: 1.75rem; position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .flow-step:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(27, 61, 43, 0.1); }
+  .flow-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.25rem; color: rgba(27, 61, 43, 0.15); font-weight: 600;
+    position: absolute; top: 0.75rem; right: 1rem;
+  }
+  .flow-icon { font-size: 1.75rem; margin-bottom: 1rem; }
+  .flow-step h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--forest); font-weight: 600; margin-bottom: 0.5rem; }
+  .flow-step p { font-size: 0.875rem; color: var(--muted); line-height: 1.55; }
+  @media (max-width: 900px) { .flow-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .flow-grid { grid-template-columns: 1fr; } }
+
+  /* ── Comparison ── */
+  .comparison { background: var(--forest-deep); color: var(--cream); }
+  .comparison .section-title { color: var(--cream); }
+  .compare-table { width: 100%; border-collapse: collapse; margin-top: 2.5rem; }
+  .compare-table th, .compare-table td {
+    padding: 1rem 1.25rem; text-align: left;
+    border-bottom: 1px solid rgba(247, 244, 236, 0.12);
+  }
+  .compare-table th {
+    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gold-bright); font-weight: 600;
+  }
+  .compare-table td { font-size: 0.925rem; line-height: 1.5; }
+  .compare-table td:first-child { color: rgba(247, 244, 236, 0.6); font-size: 0.85rem; }
+  .compare-table .cb-col { color: var(--cream); font-weight: 500; }
+
+  /* ── Open source pledge ── */
+  .pledge {
+    background: linear-gradient(135deg, var(--forest) 0%, var(--forest-deep) 100%);
+    color: var(--cream); text-align: center; padding: 5.5rem 0;
+  }
+  .pledge .seal-mini { width: 64px; height: 64px; margin: 0 auto 1.5rem; }
+  .pledge h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem); font-weight: 600;
+    max-width: 720px; margin: 0 auto 1.25rem; line-height: 1.2;
+  }
+  .pledge h2 em { font-style: italic; color: var(--gold-bright); }
+  .pledge p { max-width: 580px; margin: 0 auto; color: rgba(247, 244, 236, 0.75); line-height: 1.7; font-size: 0.95rem; }
+
+  /* ── Stakeholders ── */
+  .stakeholders-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .stake-card {
+    background: white; border: 1px solid rgba(27, 61, 43, 0.1);
+    border-radius: 14px; padding: 2rem;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .stake-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+  .stake-icon { font-size: 1.75rem; margin-bottom: 1rem; }
+  .stake-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 600; color: var(--forest); margin-bottom: 0.5rem; }
+  .stake-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+  @media (max-width: 900px) { .stakeholders-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .stakeholders-grid { grid-template-columns: 1fr; } }
+
+  /* ── Roadmap ── */
+  .roadmap-list { margin-top: 2.5rem; }
+  .roadmap-item {
+    display: flex; gap: 1.5rem; padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(27, 61, 43, 0.1);
+  }
+  .roadmap-item:last-child { border-bottom: none; }
+  .roadmap-phase {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 600; color: var(--gold);
+    min-width: 70px; flex-shrink: 0;
+  }
+  .roadmap-body h3 { font-weight: 600; color: var(--forest); font-size: 1rem; margin-bottom: 0.35rem; }
+  .roadmap-body p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── Contact ── */
+  .contact { background: var(--forest); color: var(--cream); text-align: center; }
+  .contact .section-title { color: var(--cream); }
+  .contact p.lead { color: rgba(247, 244, 236, 0.75); max-width: 560px; margin: 0 auto 2.5rem; line-height: 1.7; }
+  .contact-options { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; }
+  .contact-btn {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 1rem 2rem; border-radius: 100px; text-decoration: none;
+    font-weight: 600; font-size: 0.9rem; transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .contact-btn:hover { transform: translateY(-2px); }
+  .contact-btn.primary { background: var(--gold); color: var(--forest-deep); }
+  .contact-btn.primary:hover { box-shadow: 0 8px 28px rgba(184, 154, 74, 0.35); }
+  .contact-btn.ghost { border: 1px solid rgba(247, 244, 236, 0.35); color: var(--cream); }
+  .contact-btn.ghost:hover { border-color: var(--cream); }
+
+  /* ── Footer ── */
+  footer { padding: 2.5rem 0; text-align: center; background: var(--cream); }
+  .footer-brand { display: flex; align-items: center; justify-content: center; gap: 0.6rem; margin-bottom: 1rem; }
+  .footer-brand img { width: 28px; height: 28px; }
+  .footer-brand span { font-weight: 600; color: var(--forest); }
+  .footer-links { display: flex; gap: 1.75rem; justify-content: center; margin-bottom: 1rem; flex-wrap: wrap; }
+  .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; }
+  .footer-links a:hover { color: var(--forest); }
+  .footer-tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--gold); font-size: 1.05rem; margin-top: 0.75rem; }
+  .footer-credit { font-size: 0.75rem; color: var(--muted); margin-top: 1.25rem; }
+  .footer-credit a { color: var(--gold); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-brand">
+    <img src="/icon-32.png" alt="CarbonBod">
+    <span>CARBONBOD</span>
+  </a>
+  <div class="nav-links">
+    <a href="#how">How It Works</a>
+    <a href="#stakeholders">Who It's For</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#contact" class="nav-cta">Contact Us</a>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<header class="hero">
+  <div class="container">
+    <img src="/logo-master.png" class="hero-seal" alt="CarbonBod seal">
+    <h1>Every tonne, <em>proven.</em></h1>
+    <p class="sub">The West African carbon registry. Every credit backed by continuous sensor measurement — not paper estimates.</p>
+    <div class="hero-badge">Article 6 aligned · Built for ECOWAS · Pre-development</div>
+  </div>
+</header>
+
+<!-- ── The Problem (stats) ── -->
+<section class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-number">90%</div>
+        <div class="stat-label">of some legacy rainforest credits were phantom estimates — the 2023 integrity scandal</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-number">3 yrs</div>
+        <div class="stat-label">and $300K to register one project on legacy registries — African developers priced out</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-number">$294B</div>
+        <div class="stat-label">West Africa's climate finance gap — the infrastructure to unlock it doesn't exist yet</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── How it works ── -->
+<section id="how">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag">What we're building</div>
+      <h2 class="section-title">From sensor to credit, continuously</h2>
+      <p style="color: var(--muted); max-width: 620px; line-height: 1.7; font-size: 0.95rem;">
+        Ghana built an authority for its gold. CarbonBod is doing the same for its carbon —
+        with measurement infrastructure no registry has ever offered.
+      </p>
+    </div>
+    <div class="flow-grid">
+      <div class="flow-step reveal">
+        <div class="flow-num">1</div>
+        <div class="flow-icon">📡</div>
+        <h3>Sensors measure</h3>
+        <p>IoT devices on cookstoves, satellites over forests — continuous monitoring, not annual auditor visits.</p>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-num">2</div>
+        <div class="flow-icon">🔒</div>
+        <h3>Data verifies</h3>
+        <p>Every reading is content-addressed on IPFS and anchored on-chain. Tamper-evident by construction.</p>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-num">3</div>
+        <div class="flow-icon">🪙</div>
+        <h3>Credits mint</h3>
+        <p>Each verified tonne becomes a unique digital credit — one tonne, one token, its own evidence attached.</p>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-num">4</div>
+        <div class="flow-icon">📱</div>
+        <h3>Money flows</h3>
+        <p>Buyers purchase with receipts. Project developers and farmers paid instantly by mobile money.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Comparison ── -->
+<section class="comparison">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag">Why now</div>
+      <h2 class="section-title">The old registries broke trust. We're built on proof.</h2>
+    </div>
+    <table class="compare-table reveal">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Legacy registries</th>
+          <th>CarbonBod</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Verification</td>
+          <td>Annual auditor visits, estimated baselines</td>
+          <td class="cb-col">Continuous IoT monitoring, measured data</td>
+        </tr>
+        <tr>
+          <td>Evidence</td>
+          <td>PDF reports, opaque methodology</td>
+          <td class="cb-col">Public IPFS data — anyone can verify any tonne</td>
+        </tr>
+        <tr>
+          <td>Registration</td>
+          <td>18–36 months, $150–300K</td>
+          <td class="cb-col">Weeks, digital-first, smallholder-accessible</td>
+        </tr>
+        <tr>
+          <td>Credits</td>
+          <td>Interchangeable paper certificates</td>
+          <td class="cb-col">One tonne = one token, provenance attached forever</td>
+        </tr>
+        <tr>
+          <td>Payouts</td>
+          <td>Slow, broker-heavy</td>
+          <td class="cb-col">Instant mobile money (MTN MoMo)</td>
+        </tr>
+        <tr>
+          <td>Built for</td>
+          <td>Western consultants</td>
+          <td class="cb-col">West African realities, Article 6 alignment</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── Open Source Pledge ── -->
+<section class="pledge">
+  <div class="container reveal">
+    <img src="/logo-dark-bg.png" class="seal-mini" alt="">
+    <h2>Even our sensors are <em>open source.</em></h2>
+    <p>
+      "Verify, don't trust" cannot stop at the registry. Every MRV sensor design — schematics,
+      firmware, bill of materials — is published openly. Anyone can build them; anyone can inspect them;
+      local firms can manufacture them. Only devices passing the public conformance suite feed
+      credit-issuing data. Open door. Guarded data.
+    </p>
+  </div>
+</section>
+
+<!-- ── Stakeholders ── -->
+<section id="stakeholders">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag">Who it's for</div>
+      <h2 class="section-title">Built with, not just for</h2>
+    </div>
+    <div class="stakeholders-grid">
+      <div class="stake-card reveal">
+        <div class="stake-icon">🌍</div>
+        <h3>Project developers</h3>
+        <p>Register in weeks, not years. Cooperatives, smallholders, and community projects welcome — the door legacy registries kept closed.</p>
+      </div>
+      <div class="stake-card reveal">
+        <div class="stake-icon">🏢</div>
+        <h3>Credit buyers</h3>
+        <p>Every tonne traceable to raw sensor data. Inspect the evidence behind your portfolio. Verify, don't trust.</p>
+      </div>
+      <div class="stake-card reveal">
+        <div class="stake-icon">🏛️</div>
+        <h3>Governments &amp; regulators</h3>
+        <p>Article 6.2-aligned infrastructure with host-country authority built into the protocol — rectification powers embedded, not bolted on.</p>
+      </div>
+      <div class="stake-card reveal">
+        <div class="stake-icon">💰</div>
+        <h3>Funders &amp; investors</h3>
+        <p>The MRV layer for a $294B gap. A working pilot plan, open protocol docs, and a team that builds in public.</p>
+      </div>
+      <div class="stake-card reveal">
+        <div class="stake-icon">🛠️</div>
+        <h3>Local manufacturers</h3>
+        <p>Open sensor designs mean local firms can build certified MRV hardware — jobs and capability stay in the region.</p>
+      </div>
+      <div class="stake-card reveal">
+        <div class="stake-icon">🤝</div>
+        <h3>Technical &amp; research partners</h3>
+        <p>Open protocol, open questions, room to shape it. Universities, labs, and engineers — the spec is public.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Roadmap ── -->
+<section id="roadmap" style="background: white;">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag">Where we are</div>
+      <h2 class="section-title">Honest status, public plan</h2>
+    </div>
+    <div class="roadmap-list reveal">
+      <div class="roadmap-item">
+        <div class="roadmap-phase">M1</div>
+        <div class="roadmap-body">
+          <h3>Proof of concept — 100-stove field pilot in Ghana</h3>
+          <p>Continuous sensor monitoring, data pipeline live, public pilot report. Real data, real tonnage, real costs — documented.</p>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-phase">M2</div>
+        <div class="roadmap-body">
+          <h3>Registry MVP — first credit on-chain</h3>
+          <p>Credit issuance, IPFS evidence anchoring, and retirement certificates deployed. The first sensor-verified CarbonBod credit minted.</p>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-phase">M3</div>
+        <div class="roadmap-body">
+          <h3>Ghana CMO partnership — first authorized credits</h3>
+          <p>Article 6.2 authorization workflow live with host-country gates. Corresponding adjustments tracked, UNFCCC reporting exports.</p>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-phase">M4</div>
+        <div class="roadmap-body">
+          <h3>ECOWAS regional platform</h3>
+          <p>Multi-country deployment. The registry becomes West African market infrastructure.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ── -->
+<section class="contact" id="contact">
+  <div class="container reveal">
+    <div class="section-tag">Join us</div>
+    <h2 class="section-title">We're building this in the open.</h2>
+    <p class="lead">
+      Whether you run a cookstove project, buy credits for a portfolio, set climate policy,
+      fund the gap, or want to manufacture sensors locally — we want to hear from you.
+    </p>
+    <div class="contact-options">
+      <a href="mailto:admin@carbonbod.com" class="contact-btn primary">✉️ admin@carbonbod.com</a>
+      <a href="mailto:carl@carbonbod.com" class="contact-btn ghost">✉️ carl@carbonbod.com</a>
+      <a href="https://github.com/CarbonBod/carbonbod" target="_blank" rel="noopener" class="contact-btn ghost">⌨️ GitHub</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <div class="footer-brand">
+      <img src="/icon-32.png" alt="CarbonBod">
+      <span>CARBONBOD</span>
+    </div>
+    <div class="footer-links">
+      <a href="#how">How It Works</a>
+      <a href="#stakeholders">Stakeholders</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="https://github.com/CarbonBod/carbonbod" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:admin@carbonbod.com">Contact</a>
+    </div>
+    <div class="footer-tagline">Every tonne, proven.</div>
+    <div class="footer-credit">
+      © 2026 CarbonBod · <a href="https://webarastudio.com" target="_blank" rel="noopener">Built by Webara Studio</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
